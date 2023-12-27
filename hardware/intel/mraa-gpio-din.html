@@ -46,7 +46,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="mraa-gpio-din">
+<script type="text/html" data-template-name="mraa-gpio-din">
     <div class="form-row">
         <label for="node-input-pin"><i class="fa fa-circle"></i> Pin</label>
         <select type="text" id="node-input-pin" style="width: 250px;">
@@ -104,7 +104,7 @@
     <div class="form-tips">Board : <span id="type-tip">n/a</span><br/>mraa version : <span id="ver-tip">n/a</span></div>
 </script>
 
-<script type="text/x-red" data-help-name="mraa-gpio-din">
+<script type="text/html" data-help-name="mraa-gpio-din">
     <p>A digital input pin for an Intel Galileo/Edison/Siemens IOT2050 board.</p>
     <p>The <code>msg.payload</code> contains the value (0 or 1), and <code>msg.topic</code>
     contains "{the_board_name}/D{the pin number}".</p>
