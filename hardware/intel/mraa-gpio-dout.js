@@ -1,6 +1,7 @@
 
 module.exports = function(RED) {
     var m = require('mraa');
+    var mraaContext = require('./mraa-context');
 
     function gpioDout(n) {
         RED.nodes.createNode(this, n);
@@ -32,13 +33,16 @@ module.exports = function(RED) {
             node.p.close();
         });
     }
-    RED.nodes.registerType("mraa-gpio-dout", gpioDout);
-
-    RED.httpAdmin.get('/mraa-gpio/:id', RED.auth.needsPermission('mraa-gpio.read'), function(req,res) {
-        res.json(m.getPlatformType());
-    });
-
-    RED.httpAdmin.get('/mraa-version/:id', RED.auth.needsPermission('mraa-version.read'), function(req,res) {
-        res.json(m.getVersion());
+    RED.nodes.registerType("mraa-gpio-dout", gpioDout, {
+        settings: {
+            mraaGpioDoutBoardType: {
+                value: mraaContext.getPlatformTypeStr(),
+                exportable: true
+            },
+            mraaGpioDoutMraaVersion: {
+                value: mraaContext.getVersion(),
+                exportable: true
+            }
+        }
     });
 }

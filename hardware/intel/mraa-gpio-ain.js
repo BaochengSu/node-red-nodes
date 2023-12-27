@@ -1,6 +1,7 @@
 
 module.exports = function(RED) {
     var m = require('mraa');
+    var mraaContext = require('./mraa-context');
 
     function gpioAin(n) {
         RED.nodes.createNode(this, n);
@@ -28,5 +29,16 @@ module.exports = function(RED) {
             node.x.close();
         });
     }
-    RED.nodes.registerType("mraa-gpio-ain", gpioAin);
+    RED.nodes.registerType("mraa-gpio-ain", gpioAin, {
+        settings: {
+            mraaGpioAinBoardType: {
+                value: mraaContext.getPlatformTypeStr(),
+                exportable: true
+            },
+            mraaGpioAinMraaVersion: {
+                value: mraaContext.getVersion(),
+                exportable: true
+            }
+        }
+    });
 }

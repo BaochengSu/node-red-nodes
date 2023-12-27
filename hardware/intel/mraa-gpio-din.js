@@ -1,6 +1,7 @@
 
 module.exports = function(RED) {
     var m = require('mraa');
+    var mraaContext = require('./mraa-context');
     //console.log("BOARD :",m.getPlatformName());
 
     function gpioDin(n) {
@@ -71,5 +72,16 @@ module.exports = function(RED) {
             node.x.close();
         });
     }
-    RED.nodes.registerType("mraa-gpio-din", gpioDin);
+    RED.nodes.registerType("mraa-gpio-din", gpioDin, {
+        settings: {
+            mraaGpioDinBoardType: {
+                value: mraaContext.getPlatformTypeStr(),
+                exportable: true
+            },
+            mraaGpioDinMraaVersion: {
+                value: mraaContext.getVersion(),
+                exportable: true
+            }
+        }
+    });
 }
