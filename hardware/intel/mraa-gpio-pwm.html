@@ -1,44 +1,46 @@
 
 <script type="text/javascript">
-    RED.nodes.registerType('mraa-gpio-pwm',{
-        category: 'GPIO',
-        color: '#a6bbcf',
-        paletteLabel: 'pwm',
-        defaults: {
-            name: {value:""},
-            pin:  {value:"", required: true},
-            period: { value:"100", required: true }
-        },
-        inputs:1,
-        outputs:0,
-        icon: "arrow.png",
-        align: "right",
-        label: function() {
-            if (this.pin === "14") {
-                return "LED";
-            } else {
-                return this.name||"PWM D"+this.pin;
-            }
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        },
-        oneditprepare: function() {
-            $('#node-input-pin').val(this.pin);
-            $('#type-tip').text(RED.settings.mraaGpioPwmBoardType);
-            $('#ver-tip').text(RED.settings.mraaGpioPwmMraaVersion);
-
-            var setstate = function () {
-                if ($('#node-input-set').is(":checked")) {
-                    $("#node-set-state").show();
+    if (RED.settings.mraaGpioPwmBoardType !== "IOT2050 SM") {
+        RED.nodes.registerType('mraa-gpio-pwm',{
+            category: 'GPIO',
+            color: '#a6bbcf',
+            paletteLabel: 'pwm',
+            defaults: {
+                name: {value:""},
+                pin:  {value:"", required: true},
+                period: { value:"100", required: true }
+            },
+            inputs:1,
+            outputs:0,
+            icon: "arrow.png",
+            align: "right",
+            label: function() {
+                if (this.pin === "14") {
+                    return "LED";
                 } else {
-                    $("#node-set-state").hide();
+                    return this.name||"PWM D"+this.pin;
                 }
-            };
-            $("#node-input-set").change(function () { setstate(); });
-            setstate();
-        }
-    });
+            },
+            labelStyle: function() {
+                return this.name?"node_label_italic":"";
+            },
+            oneditprepare: function() {
+                $('#node-input-pin').val(this.pin);
+                $('#type-tip').text(RED.settings.mraaGpioPwmBoardType);
+                $('#ver-tip').text(RED.settings.mraaGpioPwmMraaVersion);
+
+                var setstate = function () {
+                    if ($('#node-input-set').is(":checked")) {
+                        $("#node-set-state").show();
+                    } else {
+                        $("#node-set-state").hide();
+                    }
+                };
+                $("#node-input-set").change(function () { setstate(); });
+                setstate();
+            }
+        });
+    }
 </script>
 
 <script type="text/html" data-template-name="mraa-gpio-pwm">
