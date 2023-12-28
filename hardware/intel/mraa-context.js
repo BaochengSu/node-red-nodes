@@ -11,6 +11,7 @@ module.exports.getPlatformTypeStr = function() {
         case 6: return "Beaglebone";
         case 7: return "Banana";
         case 26: return "IOT2050";
+        case 27: return "IOT2050 SM";
         default: return "unknown";
     }
 }

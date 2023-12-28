@@ -1,6 +1,7 @@
 
 <script type="text/javascript">
-    if (RED.settings.mraaGpioLedBoardType === "IOT2050") {
+    if (RED.settings.mraaGpioLedBoardType === "IOT2050" ||
+        RED.settings.mraaGpioLedBoardType === "IOT2050 SM") {
         RED.nodes.registerType('mraa-gpio-led',{
             category: 'GPIO',
             color: '#a6bbcf',
