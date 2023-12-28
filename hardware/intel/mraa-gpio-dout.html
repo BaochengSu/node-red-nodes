@@ -15,7 +15,7 @@
         icon: "arrow.png",
         align: "right",
         label: function() {
-            if (this.pin === "14") {
+            if (this.pin === "14" && RED.settings.mraaGpioDoutBoardType !== "IOT2050") {
                 return "LED";
             } else {
                 return this.name||"D"+this.pin;
@@ -28,6 +28,14 @@
             if (RED.settings.mraaGpioDoutBoardType === 'Galileo v1') {
                 $('#node-input-pin').append($("<option></option>").attr("value",14).text("LED - Galileo v1"));
             }
+
+            if (RED.settings.mraaGpioDoutBoardType === "IOT2050") {
+                for (i of [...Array(20).keys()].slice(14)) {
+                    // from D14 to D19
+                    $('#node-input-pin').append($("<option></option>").attr("value", i).text("D" + i));
+                }
+            }
+
             $('#node-input-pin').val(this.pin);
             $('#btype').text(RED.settings.mraaGpioDoutBoardType);
             $('#ver-tip').text(RED.settings.mraaGpioDoutMraaVersion);
