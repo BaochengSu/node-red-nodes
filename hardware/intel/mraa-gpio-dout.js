@@ -2,6 +2,7 @@
 module.exports = function(RED) {
     var m = require('mraa');
     var mraaContext = require('./mraa-context');
+    var platformTypeStr = mraaContext.getPlatformTypeStr();
 
     function gpioDout(n) {
         RED.nodes.createNode(this, n);
@@ -9,7 +10,7 @@ module.exports = function(RED) {
         this.set = n.set;
         this.level = Number(n.level);
         var node = this;
-        if (node.pin === 14) {
+        if (node.pin === 14 && platformTypeStr !== "IOT2050") {
             node.p = new m.Gpio(3,false,true);  // special for onboard LED v1
         }
         else {
@@ -36,7 +37,7 @@ module.exports = function(RED) {
     RED.nodes.registerType("mraa-gpio-dout", gpioDout, {
         settings: {
             mraaGpioDoutBoardType: {
-                value: mraaContext.getPlatformTypeStr(),
+                value: platformTypeStr,
                 exportable: true
             },
             mraaGpioDoutMraaVersion: {
